@@ -28,7 +28,7 @@ pipeline {
                 git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
                 cd tfe-rds/
                 mv tf.auto.tfvars tf.auto.tfvars.bak
-                cd ../
+                cd ..
                 cp -r tf.auto.tfvars tfe-rds/
                 cd tfe-rds/
                 git add *
