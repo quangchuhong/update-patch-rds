@@ -27,7 +27,7 @@ pipeline {
                 git config --global user.name "quangchuhong"
                 git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
                 mv tf.auto.tfvars tf.auto.tfvars.bak
-                git push origin master
+                git push
                 '''
             }
         }
