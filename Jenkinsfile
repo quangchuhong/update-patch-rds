@@ -27,6 +27,7 @@ pipeline {
                 git config --global user.name "quangchuhong"
                 git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
                 cd tfe-rds/
+                git pull
                 mv tf.auto.tfvars tf.auto.tfvars.ver1
                 mv rds.tf rds.tf.ver1
                 cd ..
