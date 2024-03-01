@@ -33,7 +33,7 @@ pipeline {
                 cp -r tf.auto.tfvars rds.tf tfe-rds/
                 cd tfe-rds/
                 git add *
-                git commit -m 'update value tfe.auto.tfvars'
+                git commit -m 'update rds tfvars'
                 git push
                 '''
             }
