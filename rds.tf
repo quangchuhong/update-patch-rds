@@ -35,7 +35,7 @@ resource "aws_db_parameter_group" "education" {
 }
 
 resource "aws_db_parameter_group" "education2" {
-  name   = "education"
+  name   = "education15"
   family = "postgres15"
 
   parameter {
