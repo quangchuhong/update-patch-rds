@@ -1,7 +1,7 @@
 pipeline {
   options {
     timestamps()
-    timeout(time: 180, unit: 'MINUTES')
+    timeout(time: 60, unit: 'MINUTES')
     // ansiColor('xterm')
     // disableConcurrentBuilds()
     // buildDiscarder(logRotator(numToKeepStr: '250', daysToKeepStr: '5'))
@@ -10,6 +10,10 @@ pipeline {
 
     environment {
         GIT_CREDS  = credentials('git')
+        DB_INSTANCE_NAME = 'quangch-rds-upgrade-test'
+        RDS_ENGINE_VERSION = '15.6'
+        DB_PARAMETER_GROUP = 'rds-upgrade-test'
+        
     }
     stages {
 
@@ -19,6 +23,20 @@ pipeline {
             }
         }
 
+
+        stage('') {
+            steps {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                aws rds modify-db-instance \
+                    --db-instance-identifier $DB_INSTANCE_NAME \
+                    --engine-version $RDS_ENGINE_VERSION \
+                    --allow-major-version-upgrade \
+                    --db-parameter-group-name $DB_PARAMETER_GROUP \
+                    --apply-immediately
+                '''
+            }
+        }
         stage('git clone and push code tf of TFE') {
             steps {
                 sh '''#!/usr/bin/env bash
