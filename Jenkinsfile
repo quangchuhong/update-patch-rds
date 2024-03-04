@@ -45,13 +45,12 @@ pipeline {
                 git config --global user.name "quangchuhong"
                 git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
                 cd tfe-rds/
-                mv tf.auto.tfvars tf.auto.tfvars.ver1
-                mv rds.tf rds.tf.ver1
+                mv tf.auto.tfvars tf.auto.tfvars.ver2
                 cd ..
-                cp -r tf.auto.tfvars rds.tf tfe-rds/
+                cp -r tf.auto.tfvars tfe-rds/
                 cd tfe-rds/
                 git add *
-                git commit -m 'update rds tfvars ver1'
+                git commit -m 'update tfvars ver2'
                 git push
                 '''
             }
