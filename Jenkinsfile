@@ -10,7 +10,8 @@ pipeline {
 
     environment {
         GIT_CREDS  = credentials('git')
-        DB_INSTANCE_NAME = 'quangch-rds-upgrade-test'
+        DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
+        DB_INSTANCE_NAME_2 = 'education03'
         RDS_ENGINE_VERSION = '15.6'
         DB_PARAMETER_GROUP = 'rds-upgrade-test'
         
@@ -29,7 +30,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
                 aws rds modify-db-instance \
-                    --db-instance-identifier $DB_INSTANCE_NAME \
+                    --db-instance-identifier $DB_INSTANCE_NAME_2 \
                     --engine-version $RDS_ENGINE_VERSION \
                     --allow-major-version-upgrade \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
@@ -50,6 +51,7 @@ pipeline {
                 cd ..
                 cp -r tf.auto.tfvars tfe-rds/
                 cd tfe-rds/
+                git pull
                 git add *
                 git commit -m 'update tfvars ver2'
                 git push
