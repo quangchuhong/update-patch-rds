@@ -13,7 +13,7 @@ pipeline {
         DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
         DB_INSTANCE_NAME_2 = 'education03'
         RDS_ENGINE_VERSION = '15.6'
-        DB_PARAMETER_GROUP = 'rds-upgrade-test-16-v02'
+        DB_PARAMETER_GROUP = 'rds-upgrade-test-16-v03'
         RDS_ENGINE_VERSION_LASTEST = '16.2'
 
         
@@ -46,11 +46,9 @@ pipeline {
                 aws rds create-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
                     --db-parameter-group-family postgres16 \
+                    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate" \
                     --description "My new parameter group for postgres16"
-                aws rds modify-db-parameter-group \
-                    --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --parameters "ParameterName=max_connections,ApplyMethod=immediate" \
-                                "ParameterName=max_allowed_packet,ApplyMethod=immediate"
+
                 '''
             }
         }
