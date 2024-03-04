@@ -25,7 +25,14 @@ aws rds create-db-parameter-group \
 
 aws rds modify-db-parameter-group \
     --db-parameter-group-name test-sqlserver-se-2017 \
-    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate"
+    --parameters "ParameterName=server_audit_logging,ParameterValue=1,ApplyMethod=immediate" \
+                 "ParameterName=server_audit_logs_upload,ParameterValue=1,ApplyMethod=immediate"
 
-    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate"
+
+aws rds modify-db-cluster-parameter-group \
+    --db-cluster-parameter-group-name mydbclusterpg \
+    --parameters "ParameterName=server_audit_logging,ParameterValue=1,ApplyMethod=immediate" \
+                 "ParameterName=server_audit_logs_upload,ParameterValue=1,ApplyMethod=immediate"
+
+
 
