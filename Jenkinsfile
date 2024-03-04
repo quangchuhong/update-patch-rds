@@ -14,6 +14,8 @@ pipeline {
         DB_INSTANCE_NAME_2 = 'education03'
         RDS_ENGINE_VERSION = '15.6'
         DB_PARAMETER_GROUP = 'rds-upgrade-test'
+        RDS_ENGINE_VERSION_LASTEST = '16.2'
+
         
     }
     stages {
@@ -33,11 +35,29 @@ pipeline {
                     --db-instance-identifier $DB_INSTANCE_NAME_2 \
                     --engine-version $RDS_ENGINE_VERSION \
                     --allow-major-version-upgrade \
+                    --apply-immediately
+                '''
+            }
+        }
+        stage('upgrade lastest rds version') {
+            steps {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                aws rds create-db-parameter-group \
+                    --db-parameter-group-name dbparametergroup16 \
+                    --db-parameter-group-family postgres16 \
+                    --description "My new parameter group for postgres16"
+
+                aws rds modify-db-instance \
+                    --db-instance-identifier $DB_INSTANCE_NAME_2 \
+                    --engine-version $RDS_ENGINE_VERSION_LASTEST \
+                    --allow-major-version-upgrade \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
                     --apply-immediately
                 '''
             }
         }
+
         stage('git clone and push code tf of TFE') {
             steps {
                 sh '''#!/usr/bin/env bash
