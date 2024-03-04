@@ -13,12 +13,19 @@ aws rds modify-db-instance \
 
 aws rds describe-db-engine-versions \
   --engine postgres \
-  --engine-version 13.11 \
+  --engine-version 13.14 \
   --query "DBEngineVersions[*].ValidUpgradeTarget[*].{EngineVersion:EngineVersion}" --output text
 
 # create db parameter group for postgres family
 aws rds create-db-parameter-group \
     --db-parameter-group-name dbparametergroup15 \
     --db-parameter-group-family postgres15 \
+    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate"
     --description "My new parameter group for postgres15"
+
+aws rds modify-db-parameter-group \
+    --db-parameter-group-name test-sqlserver-se-2017 \
+    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate"
+
+    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate"
 

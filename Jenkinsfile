@@ -46,6 +46,7 @@ pipeline {
                 aws rds create-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
                     --db-parameter-group-family postgres16 \
+                    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate" \
                     --description "My new parameter group for postgres16"
                 '''
             }
