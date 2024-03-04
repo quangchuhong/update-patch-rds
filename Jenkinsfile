@@ -41,6 +41,7 @@ pipeline {
             steps {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
+                rm -rf tfe-rds/
                 git config --global user.email "quang.hong.0991@gmail.com"
                 git config --global user.name "quangchuhong"
                 git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
