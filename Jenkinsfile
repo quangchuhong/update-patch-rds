@@ -47,7 +47,6 @@ pipeline {
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
                     --db-parameter-group-family postgres16 \
                     --parameters "ParameterName=server_audit_logging,ParameterValue=1,ApplyMethod=immediate" \
-                                "ParameterName=server_audit_logs_upload,ParameterValue=1,ApplyMethod=immediate" \
                     --description "My new parameter group for postgres16"
 
                 aws rds modify-db-parameter-group \
