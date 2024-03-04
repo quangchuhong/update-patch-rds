@@ -39,7 +39,7 @@ pipeline {
                 '''
             }
         }
-        stage('upgrade lastest rds version') {
+        stage('Create new parametergroup') {
             steps {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
@@ -48,6 +48,21 @@ pipeline {
                     --db-parameter-group-family postgres16 \
                     --description "My new parameter group for postgres16"
 
+                aws rds modify-db-instance \
+                    --db-instance-identifier $DB_INSTANCE_NAME_2 \
+                    --engine-version $RDS_ENGINE_VERSION_LASTEST \
+                    --allow-major-version-upgrade \
+                    --db-parameter-group-name $DB_PARAMETER_GROUP \
+                    --apply-immediately
+                '''
+            }
+        }
+
+        stage('Upgrade Lastest Rds version') {
+            steps {
+                input message:'Approve Upgrade Rds?'
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
                 aws rds modify-db-instance \
                     --db-instance-identifier $DB_INSTANCE_NAME_2 \
                     --engine-version $RDS_ENGINE_VERSION_LASTEST \
