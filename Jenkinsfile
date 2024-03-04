@@ -13,7 +13,7 @@ pipeline {
         DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
         DB_INSTANCE_NAME_2 = 'education03'
         RDS_ENGINE_VERSION = '15.6'
-        DB_PARAMETER_GROUP = 'rds-upgrade-test'
+        DB_PARAMETER_GROUP = 'rds-upgrade-test-16'
         RDS_ENGINE_VERSION_LASTEST = '16.2'
 
         
@@ -44,7 +44,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
                 aws rds create-db-parameter-group \
-                    --db-parameter-group-name dbparametergroup16 \
+                    --db-parameter-group-name $DB_PARAMETER_GROUP \
                     --db-parameter-group-family postgres16 \
                     --description "My new parameter group for postgres16"
 
