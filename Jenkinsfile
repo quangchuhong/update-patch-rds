@@ -24,7 +24,7 @@ pipeline {
         }
 
 
-        stage('') {
+        stage('upgrade minor rds version') {
             steps {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
