@@ -48,7 +48,8 @@ pipeline {
 
                 aws rds modify-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --parameters "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=immediate"               
+                    --parameters "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=immediate" \
+                                "ParameterName='log_connections',ParameterValue=on,ApplyMethod=immediate"               
                 '''
             }
         }
