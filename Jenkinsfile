@@ -15,7 +15,6 @@ pipeline {
         RDS_ENGINE_VERSION = '15.6'
         DB_PARAMETER_GROUP = 'rds-upgrade-test-16-v04'
         RDS_ENGINE_VERSION_LASTEST = '16.2'
-
         
     }
     stages {
@@ -25,7 +24,6 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/quangchuhong/update-patch-rds.git'
             }
         }
-
 
         stage('upgrade minor rds version') {
             steps {
@@ -50,7 +48,8 @@ pipeline {
 
                 aws rds modify-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate"
+                    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate" \
+                                "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=immediate"
                 '''
             }
         }
