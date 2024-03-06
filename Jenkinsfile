@@ -48,8 +48,7 @@ pipeline {
 
                 aws rds modify-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --parameters "ParameterName='clr enabled',ParameterValue=1,ApplyMethod=immediate" \
-                                "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=immediate"
+                    --parameters "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=immediate"               
                 '''
             }
         }
