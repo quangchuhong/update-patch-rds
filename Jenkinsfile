@@ -29,11 +29,11 @@ pipeline {
             steps {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
-                aws rds modify-db-instance \
-                    --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                    --engine-version $RDS_ENGINE_VERSION \
-                    --allow-major-version-upgrade \
-                    --apply-immediately
+                // aws rds modify-db-instance \
+                //     --db-instance-identifier $DB_INSTANCE_NAME_1 \
+                //     --engine-version $RDS_ENGINE_VERSION \
+                //     --allow-major-version-upgrade \
+                //     --apply-immediately
                 '''
             }
         }
