@@ -10,10 +10,10 @@ pipeline {
 
     environment {
         GIT_CREDS  = credentials('git')
-        DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test-v10'
+        DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
         DB_INSTANCE_NAME_2 = 'education03'
-        RDS_ENGINE_VERSION = '15.6'
-        DB_PARAMETER_GROUP = 'rds-upgrade-test-16-v04'
+        RDS_ENGINE_VERSION = '13.14'
+        DB_PARAMETER_GROUP = 'rds-upgrade-test'
         RDS_ENGINE_VERSION_LASTEST = '16.2'
         
     }
@@ -46,10 +46,10 @@ pipeline {
                     --db-parameter-group-family postgres16 \
                     --description "My new parameter group for postgres16"
 
-                // aws rds modify-db-parameter-group \
-                //     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                //     --parameters "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=immediate" \
-                //                 "ParameterName='log_connections',ParameterValue=on,ApplyMethod=immediate"               
+                aws rds modify-db-parameter-group \
+                    --db-parameter-group-name $DB_PARAMETER_GROUP \
+                    --parameters "ParameterName='log_checkpoints',ParameterValue=on" \
+                                "ParameterName='log_connections',ParameterValue=on"               
                 '''
             }
         }
