@@ -35,24 +35,6 @@ aws rds modify-db-cluster-parameter-group \
                  "ParameterName=server_audit_logs_upload,ParameterValue=1,ApplyMethod=immediate"
 
 
-# change multiple parameter group
-aws rds modify-db-parameter-group \
-    --db-parameter-group-name test-create-dbparametergroup16 \
-    --parameters "ParameterName='log_checkpoints',ParameterValue=1,ApplyMethod=immediate" \
-                 "ParameterName='log_connections',ParameterValue=1,ApplyMethod=immediate" \
-                "ParameterName='log_disconnections',ParameterValue=1,ApplyMethod=immediate" \
-                "ParameterName='log_lock_waits',ParameterValue=1,ApplyMethod=immediate" \
-                "ParameterName='log_min_duration_statement',ParameterValue=5000,ApplyMethod=immediate" \
-                "ParameterName='auto_explain.log_min_duration',ParameterValue=1000,ApplyMethod=immediate" \
-                "ParameterName='track_io_timing',ParameterValue=1,ApplyMethod=immediate" \
-                "ParameterName='track_activities',ParameterValue=1,ApplyMethod=immediate" \
-                "ParameterName='log_min_error_statement',ParameterValue='warning',ApplyMethod=immediate" \
-                "ParameterName='shared_preload_libraries',ParameterValue='pg_stat_statements,pg_cron,auto_explain',ApplyMethod=pending-reboot" \
-                "ParameterName='log_min_messages',ParameterValue='warning',ApplyMethod=immediate" \
-                "ParameterName='log_statement',ParameterValue='ddl',ApplyMethod=immediate"  \
-                "ParameterName='track_functions',ParameterValue='all',ApplyMethod=immediate" \
-                "ParameterName='track_activity_query_size',ParameterValue=102400,ApplyMethod=pending-reboot" 
-
 # "ParameterName='track_activity_query_size',ParameterValue=102400,ApplyMethod=pending-reboot" 
 
 aws rds create-db-parameter-group \
@@ -68,15 +50,6 @@ aws rds create-db-parameter-group \
 
 
 
-aws rds modify-db-parameter-group \
-    --db-parameter-group-name parameter-group-16-v5 \
-    --parameters "ParameterName='log_min_error_statement',ParameterValue=warning,ApplyMethod=immediate"
-
-aws rds modify-db-parameter-group \
-    --db-parameter-group-name parameter-group-16-v5 \
-    --parameters "ParameterName='track_counts',ParameterValue=1,ApplyMethod=immediate"
-
-
 !! fixed
 # "ParameterName='log_min_error_statement',ParameterValue='warning',ApplyMethod=immediate" 
 # "ParameterName='shared_preload_libraries',ParameterValue='pg_stat_statements,pg_cron,auto_explain',ApplyMethod=immediate" --> version16 bo aws-s3
@@ -87,3 +60,9 @@ aws rds modify-db-parameter-group \
 
 "ParameterName='track_counts',ParameterValue=1,ApplyMethod=immediate" --> bỏ trên postgre16
 
+
+# check status rds instances
+
+aws rds describe-db-instances \
+    --db-instance-identifier quangch-rds-upgrade-test \
+    --query 'DBInstances[].DBInstanceStatus[]'

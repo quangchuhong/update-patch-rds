@@ -56,6 +56,19 @@ pipeline {
             }
         }
 
+        stage('Waiting check status rds instances') {
+            steps {
+                retry(3) {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                aws rds describe-db-instances \
+                --db-instance-identifier quangch-rds-upgrade-test \
+                --query 'DBInstances[].DBInstanceStatus[]'
+                '''
+                }
+            }
+        }
+
         stage('Upgrade Lastest Rds version') {
             steps {
                 input message:'Approve Upgrade Rds?'
