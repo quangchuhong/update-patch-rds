@@ -62,10 +62,16 @@ pipeline {
                 retry(3) {
                     sh '''#!/usr/bin/env bash
                     echo "Shell Process ID: $$"
-                    aws rds describe-db-instances \
+                    STATUS_RDS = $(aws rds describe-db-instances \
                     --db-instance-identifier quangch-rds-upgrade-test \
-                    --query 'DBInstances[].DBInstanceStatus[]'
+                    --query 'DBInstances[].DBInstanceStatus[]')
                     '''
+                    if [$STATUS_RDS == avainable ]
+                    then
+                        echo "rds instance status avainable"
+                    else
+                        echo "rds instance status not avainable"
+                    fi
                     }
                 }
             }
