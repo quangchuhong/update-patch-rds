@@ -61,6 +61,9 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
                 sleep 300
+                aws rds describe-db-instances \
+                    --db-instance-identifier quangch-rds-upgrade-test \
+                    --query 'DBInstances[].DBInstanceStatus[]'
                 '''
              }
         }
