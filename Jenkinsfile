@@ -58,13 +58,12 @@ pipeline {
 
         stage ("wait_for_checking_status_rds") {
             steps {
-                sh '''#!/usr/bin/env bash
-                echo "Shell Process ID: $$"
-                sleep 300
-                aws rds describe-db-instances \
-                    --db-instance-identifier quangch-rds-upgrade-test \
-                    --query 'DBInstances[].DBInstanceStatus[]'
-                '''
+                for (int i = 0; i < 120; i++) {
+                    status = sh(script: "aws rds describe-db-instances \
+                        --db-instance-identifier quangch-rds-upgrade-test \
+                        --query 'DBInstances[].DBInstanceStatus[]''").trim()
+                    sh'''sleep 60'''
+                }
              }
         }
 
