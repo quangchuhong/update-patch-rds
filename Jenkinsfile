@@ -58,13 +58,20 @@ pipeline {
 
         stage ("wait_for_checking_status_rds") {
             steps {
-                for (int i = 0; i < 120; i++) {
-                    status = sh(script: "aws rds describe-db-instances \
-                        --db-instance-identifier quangch-rds-upgrade-test \
-                        --query 'DBInstances[].DBInstanceStatus[]''").trim()
-                    sh'''sleep 60'''
+                script{
+                    for (int i = 0; i < 120; i++) {
+                        stage('checking status rds avainable' + i){
+                            sh '''#!/usr/bin/env bash
+                            aws rds modify-db-instance \
+                                --db-instance-identifier $DB_INSTANCE_NAME_1 \
+                                --engine-version $RDS_ENGINE_VERSION \
+                                --allow-major-version-upgrade \
+                                --apply-immediately
+                            '''
+                        }
+                    }
                 }
-             }
+            }
         }
 
         stage('Waiting check status rds instances') {
