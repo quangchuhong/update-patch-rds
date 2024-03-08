@@ -37,9 +37,9 @@ pipeline {
 
                 aws rds modify-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --parameters "ParameterName='log_checkpoints',ParameterValue=on" \
-                                "ParameterName='log_connections',ParameterValue=on" \
-                                "ParameterName='track_activity_query_size',ParameterValue=102400"         
+                    --parameters "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=pending-reboot" \
+                                "ParameterName='log_connections',ParameterValue=on,ApplyMethod=pending-reboot" \
+                                "ParameterName='track_activity_query_size',ParameterValue=102400,ApplyMethod=pending-reboot"         
                 '''
             }
         }
