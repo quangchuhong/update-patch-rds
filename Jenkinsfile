@@ -66,7 +66,6 @@ pipeline {
                             --query 'DBInstances[].DBInstanceStatus[]'
                         sleep 60
                         '''
-                        }
                     }
                 }
             }
