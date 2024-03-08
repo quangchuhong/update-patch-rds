@@ -65,6 +65,7 @@ pipeline {
                             aws rds describe-db-instances \
                                 --db-instance-identifier quangch-rds-upgrade-test \
                                 --query 'DBInstances[].DBInstanceStatus[]'
+                            sleep 60
                             '''
                         }
                     }
