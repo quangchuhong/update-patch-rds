@@ -56,6 +56,11 @@ pipeline {
             }
         }
 
+        stage ("wait_for_checking_status_rds")
+        {
+            sh 'sleep 300'
+        }
+
         stage('Waiting check status rds instances') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
