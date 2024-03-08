@@ -64,6 +64,11 @@ pipeline {
                                             --db-instance-identifier quangch-rds-upgrade-test \
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true)
                         echo "this is a string ${RDS_STATUS}"
+                        if (RDS_STATUS != 'avainable') {
+                            echo "Error: Command exited with status ${RDS_STATUS}"
+                        } else {
+                            echo "Command executed successfully"
+                        }
                         sh'''sleep 60'''
                     }
                 }
