@@ -1,0 +1,74 @@
+{
+    [
+        {
+            'ApplyMethod': 'pending-reboot',
+            'ParameterName': 'track_activity_query_size',
+            'ParameterValue': '102400',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_checkpoints',
+            'ParameterValue': 'true',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_disconnections',
+            'ParameterValue': 'true',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_connections',
+            'ParameterValue': 'true',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_lock_waits',
+            'ParameterValue': 'true',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_min_duration_statement',
+            'ParameterValue': '5000',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_min_error_statement',
+            'ParameterValue': 'warning',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_min_messages',
+            'ParameterValue': 'warning',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'log_statement',
+            'ParameterValue': 'ddl',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'auto_explain.log_min_duration',
+            'ParameterValue': '1000',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'track_functions',
+            'ParameterValue': 'all',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'track_io_timing',
+            'ParameterValue': 'true',
+        },
+        {
+            'ApplyMethod': 'immediate',
+            'ParameterName': 'track_activities',
+            'ParameterValue': 'true',
+        },
+        {
+            'ApplyMethod': 'pending-reboot',
+            'ParameterName': 'shared_preload_libraries',
+            'ParameterValue': 'pg_stat_statements,pg_cron,auto_explain',
+        }
+    ]
+}

@@ -1,0 +1,2 @@
+track_activity_query_size,102400,pending-reboot  
+log_checkpoints,true,immediate  
