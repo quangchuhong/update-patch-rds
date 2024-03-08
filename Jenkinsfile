@@ -60,9 +60,9 @@ pipeline {
             steps {
                 script{
                     for (int i = 0; i < 120; i++) {
-                        RDS_STATUS=sh(script:"aws rds describe-db-instances \
+                        def RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
-                                            --query 'DBInstances[].DBInstanceStatus[]'")
+                                            --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true)
                         echo "this is a string ${RDS_STATUS}"
                         sh'''sleep 60'''
                     }
