@@ -62,7 +62,7 @@ pipeline {
                     for (int i = 0; i < 120; i++) {
                         RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
-                                            --query 'DBInstances[].DBInstanceStatus[]'", returnStdout:true)
+                                            --query 'DBInstances[].DBInstanceStatus[]'")
                         if(${RDS_STATUS} == 'avainable') {
                             sh'''echo rds status avainable'''
                         } else {
