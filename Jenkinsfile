@@ -58,13 +58,15 @@ pipeline {
 
         stage('Waiting check status rds instances') {
             steps {
+                timeout(time: 10, unit: 'MINUTES') {
                 retry(3) {
-                sh '''#!/usr/bin/env bash
-                echo "Shell Process ID: $$"
-                aws rds describe-db-instances \
-                --db-instance-identifier quangch-rds-upgrade-test \
-                --query 'DBInstances[].DBInstanceStatus[]'
-                '''
+                    sh '''#!/usr/bin/env bash
+                    echo "Shell Process ID: $$"
+                    aws rds describe-db-instances \
+                    --db-instance-identifier quangch-rds-upgrade-test \
+                    --query 'DBInstances[].DBInstanceStatus[]'
+                    '''
+                    }
                 }
             }
         }
