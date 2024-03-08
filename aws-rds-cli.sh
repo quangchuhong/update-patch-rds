@@ -66,3 +66,8 @@ aws rds create-db-parameter-group \
 aws rds describe-db-instances \
     --db-instance-identifier quangch-rds-upgrade-test \
     --query 'DBInstances[].DBInstanceStatus[]'
+
+
+sh(script:'aws rds describe-db-instances \
+    --db-instance-identifier quangch-rds-upgrade-test \
+    --query 'DBInstances[].DBInstanceStatus[]'', returnStdout:true)
