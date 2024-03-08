@@ -63,12 +63,6 @@ pipeline {
                         RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
                                             --query 'DBInstances[].DBInstanceStatus[]'")
-                        if(${RDS_STATUS} == 'avainable') {
-                            sh'''echo rds status avainable'''
-                        } else {
-                            sh'''echo rds status not avainable'''
-                            
-                        }
                         sh'''sleep 60'''
                     }
                 }
