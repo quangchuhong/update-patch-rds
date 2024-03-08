@@ -15,6 +15,7 @@ pipeline {
         RDS_ENGINE_VERSION = '13.14'
         DB_PARAMETER_GROUP = 'rds-upgrade-test'
         RDS_ENGINE_VERSION_LASTEST = '16.2'
+        DB_PARAMETER_GROUP_FAMILY = 'postgres16'
         
     }
     stages {
@@ -31,8 +32,8 @@ pipeline {
                 echo "Shell Process ID: $$"
                 aws rds create-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --db-parameter-group-family postgres16 \
-                    --description "My new parameter group for postgres16"
+                    --db-parameter-group-family $DB_PARAMETER_GROUP_FAMILY \
+                    --description "My new parameter group for $DB_PARAMETER_GROUP_FAMILY "
 
                 aws rds modify-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
