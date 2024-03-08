@@ -56,9 +56,13 @@ pipeline {
             }
         }
 
-        stage ("wait_for_checking_status_rds")
-        {
-            sh 'sleep 300'
+        stage ("wait_for_checking_status_rds") {
+            steps {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                sleep 300
+                '''
+             }
         }
 
         stage('Waiting check status rds instances') {
