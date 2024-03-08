@@ -13,7 +13,7 @@ pipeline {
         DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
         DB_INSTANCE_NAME_2 = 'education03'
         RDS_ENGINE_VERSION = '13.14'
-        DB_PARAMETER_GROUP = 'rds-upgrade-test-postgres16-v2'
+        DB_PARAMETER_GROUP = 'rds-upgrade-test-postgres16-v3'
         RDS_ENGINE_VERSION_LASTEST = '16.2'
         DB_PARAMETER_GROUP_FAMILY = 'postgres16'
         
