@@ -62,7 +62,7 @@ pipeline {
                     for (int i = 0; i < 120; i++) {
                         def RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
-                                            --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
+                                            --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim('avainable')
                         echo "this is a string ${RDS_STATUS}"
                         if (RDS_STATUS != 'avainable') {
                             echo "Error: Command exited with status ${RDS_STATUS}"
