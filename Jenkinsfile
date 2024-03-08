@@ -66,10 +66,11 @@ pipeline {
                         echo "this is a string ${RDS_STATUS}"
                         if (RDS_STATUS != 'avainable') {
                             echo "Error: Command exited with status ${RDS_STATUS}"
+                            sh'''sleep 60'''
                         } else {
                             echo "Command executed successfully"
                         }
-                        sh'''sleep 60'''
+                        
                     }
                 }
             }
