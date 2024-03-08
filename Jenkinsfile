@@ -60,12 +60,12 @@ pipeline {
             steps {
                 script{
                     for (int i = 0; i < 120; i++) {
-                        sh '''#!/usr/bin/env bash
+                        sh '''
                         aws rds describe-db-instances \
                             --db-instance-identifier quangch-rds-upgrade-test \
                             --query 'DBInstances[].DBInstanceStatus[]'
-                        sleep 60
                         '''
+                        sh'''sleep 60'''
                     }
                 }
             }
