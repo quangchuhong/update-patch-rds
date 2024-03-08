@@ -63,6 +63,7 @@ pipeline {
                         RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
                                             --query 'DBInstances[].DBInstanceStatus[]'")
+                        println ${RDS_STATUS}
                         sh'''sleep 60'''
                     }
                 }
