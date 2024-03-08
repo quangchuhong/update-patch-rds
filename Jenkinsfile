@@ -62,11 +62,9 @@ pipeline {
                     for (int i = 0; i < 120; i++) {
                         stage('checking status rds avainable' + i){
                             sh '''#!/usr/bin/env bash
-                            aws rds modify-db-instance \
-                                --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                                --engine-version $RDS_ENGINE_VERSION \
-                                --allow-major-version-upgrade \
-                                --apply-immediately
+                            aws rds describe-db-instances \
+                                --db-instance-identifier quangch-rds-upgrade-test \
+                                --query 'DBInstances[].DBInstanceStatus[]'
                             '''
                         }
                     }
