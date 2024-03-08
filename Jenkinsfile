@@ -66,12 +66,6 @@ pipeline {
                     --db-instance-identifier quangch-rds-upgrade-test \
                     --query 'DBInstances[].DBInstanceStatus[]')
                     '''
-                    if [$STATUS_RDS == avainable ]
-                    then
-                        echo "rds instance status avainable"
-                    else
-                        echo "rds instance status not avainable"
-                    fi
                     }
                 }
             }
