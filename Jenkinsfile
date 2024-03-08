@@ -65,12 +65,11 @@ pipeline {
                                             --query 'DBInstances[].DBInstanceStatus[]'", returnStdout:true)
                         if(${RDS_STATUS} == 'avainable') {
                             sh'''echo rds status avainable'''
-                        }
-                        else {
+                        } else {
                             sh'''echo rds status not avainable'''
-                            sh'''sleep 60'''
+                            
                         }
-                        
+                        sh'''sleep 60'''
                     }
                 }
             }
