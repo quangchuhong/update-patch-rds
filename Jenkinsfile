@@ -25,18 +25,6 @@ pipeline {
             }
         }
 
-        stage('upgrade minor rds version') {
-            steps {
-                sh '''#!/usr/bin/env bash
-                echo "Shell Process ID: $$"
-                aws rds modify-db-instance \
-                    --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                    --engine-version $RDS_ENGINE_VERSION \
-                    --allow-major-version-upgrade \
-                    --apply-immediately
-                '''
-            }
-        }
         stage('Create new parametergroup') {
             steps {
                 sh '''#!/usr/bin/env bash
@@ -51,6 +39,18 @@ pipeline {
                     --parameters "ParameterName='log_checkpoints',ParameterValue=on" \
                                 "ParameterName='log_connections',ParameterValue=on" \
                                 "ParameterName='track_activity_query_size',ParameterValue=102400"         
+                '''
+            }
+        }
+        stage('upgrade minor rds version') {
+            steps {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                aws rds modify-db-instance \
+                    --db-instance-identifier $DB_INSTANCE_NAME_1 \
+                    --engine-version $RDS_ENGINE_VERSION \
+                    --allow-major-version-upgrade \
+                    --apply-immediately
                 '''
             }
         }
