@@ -52,76 +52,45 @@ pipeline {
             }
         }
 
-        stage ("wait_for_checking_status_rds") {
+        stage ("wait_for_auto_checking_status_rds") {
             steps {
                 script{
                     for (int i = 0; i < 120; i++) {
                         def RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
+                                            --output text \
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
+                        def rds_status_test = '["available"]'
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS != ["available"]) {
+                        if (RDS_STATUS != 'avainable') {
                             echo "Error: Command exited with status ${RDS_STATUS}"
                             sh'''sleep 60'''
-                        } else {
-                            echo "Command executed successfully"
                         }
                         
                     }
                 }
             }
         }
-
-        stage('Waiting check status rds instances') {
+        stage('git clone and push code tf of TFE') {
             steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                retry(3) {
-                    sh '''#!/usr/bin/env bash
-                    echo "Shell Process ID: $$"
-                    aws rds describe-db-instances \
-                    --db-instance-identifier quangch-rds-upgrade-test \
-                    --query 'DBInstances[].DBInstanceStatus[]'
-                    '''
-                    }
-                }
-            }
-        }
-
-        stage('Upgrade Lastest Rds version') {
-            steps {
-                input message:'Approve Upgrade Rds?'
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
-                aws rds modify-db-instance \
-                    --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                    --engine-version $RDS_ENGINE_VERSION_LASTEST \
-                    --allow-major-version-upgrade \
-                    --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --apply-immediately
+                rm -rf tfe-rds/
+                git config --global user.email "quang.hong.0991@gmail.com"
+                git config --global user.name "quangchuhong"
+                git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
+                cd tfe-rds/
+                mv tf.auto.tfvars tf.auto.tfvars.ver2
+                cd ..
+                cp -r tf.auto.tfvars tfe-rds/
+                cd tfe-rds/
+                git pull
+                git add *
+                git commit -m 'update tfvars ver7'
+                git push
                 '''
             }
         }
-
-        // stage('git clone and push code tf of TFE') {
-        //     steps {
-        //         sh '''#!/usr/bin/env bash
-        //         echo "Shell Process ID: $$"
-        //         rm -rf tfe-rds/
-        //         git config --global user.email "quang.hong.0991@gmail.com"
-        //         git config --global user.name "quangchuhong"
-        //         git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
-        //         cd tfe-rds/
-        //         mv tf.auto.tfvars tf.auto.tfvars.ver2
-        //         cd ..
-        //         cp -r tf.auto.tfvars tfe-rds/
-        //         cd tfe-rds/
-        //         git pull
-        //         git add *
-        //         git commit -m 'update tfvars ver2'
-        //         git push
-        //         '''
-        //     }
-        // }
     }
 
     post {
