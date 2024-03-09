@@ -64,33 +64,33 @@ pipeline {
                                             --db-instance-identifier quangch-rds-upgrade-test \
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS != 'avainable') {
-                            echo "Error: Command exited with status ${RDS_STATUS}"
-                            sh'''sleep 60'''
+                        if (RDS_STATUS == 'avainable') {
+                            echo "RDS status is ${RDS_STATUS}"
+                            stage ('Upgrade Lastest Rds version') {
+                                steps {
+                                    input message:'Approve Upgrade Rds?'
+                                    sh '''#!/usr/bin/env bash
+                                    echo "Shell Process ID: $$"
+                                    aws rds modify-db-instance \
+                                        --db-instance-identifier $DB_INSTANCE_NAME_1 \
+                                        --engine-version $RDS_ENGINE_VERSION_LASTEST \
+                                        --allow-major-version-upgrade \
+                                        --db-parameter-group-name $DB_PARAMETER_GROUP \
+                                        --apply-immediately
+                                    '''
+                                }
+                            }
+                            
                         } else {
-                            echo "Command executed successfully"
+                            echo "RDS status is not avainable"
+                            echo "Auto Checking Rds status, 2 minute/time"
+                            sh'''sleep 60'''
                         }
                         
                     }
                 }
             }
         }
-
-        stage('Waiting check status rds instances') {
-            steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                retry(3) {
-                    sh '''#!/usr/bin/env bash
-                    echo "Shell Process ID: $$"
-                    aws rds describe-db-instances \
-                    --db-instance-identifier quangch-rds-upgrade-test \
-                    --query 'DBInstances[].DBInstanceStatus[]'
-                    '''
-                    }
-                }
-            }
-        }
-
         stage('Upgrade Lastest Rds version') {
             steps {
                 input message:'Approve Upgrade Rds?'
