@@ -62,10 +62,11 @@ pipeline {
                     for (int i = 0; i < 120; i++) {
                         def RDS_STATUS=sh(script:"aws rds describe-db-instances \
                                             --db-instance-identifier quangch-rds-upgrade-test \
+                                            --output text \
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
                         def rds_status_test = '["available"]'
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS == '["available"]') {
+                        if (RDS_STATUS == 'available') {
                             echo "RDS status is ${rds_status_test}"
                             stage ('Upgrade Lastest Rds version') {
                                 input message:'Approve Upgrade Rds?'
