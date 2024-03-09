@@ -1,10 +1,9 @@
 import os
 import sys
 import boto3
-import botocore.config
 import json
 
-client = boto3.client('rds')
+client = boto3.client('rds',region_name='ap-southeast-1')
 parameter_group_name='rds-upgrade-test-postgres16-v3'
 file_parameter="parameter-value-postgres16.txt"
 
