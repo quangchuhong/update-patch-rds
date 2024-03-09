@@ -106,26 +106,26 @@ pipeline {
         //     }
         // }
 
-        // stage('git clone and push code tf of TFE') {
-        //     steps {
-        //         sh '''#!/usr/bin/env bash
-        //         echo "Shell Process ID: $$"
-        //         rm -rf tfe-rds/
-        //         git config --global user.email "quang.hong.0991@gmail.com"
-        //         git config --global user.name "quangchuhong"
-        //         git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
-        //         cd tfe-rds/
-        //         mv tf.auto.tfvars tf.auto.tfvars.ver2
-        //         cd ..
-        //         cp -r tf.auto.tfvars tfe-rds/
-        //         cd tfe-rds/
-        //         git pull
-        //         git add *
-        //         git commit -m 'update tfvars ver2'
-        //         git push
-        //         '''
-        //     }
-        // }
+        stage('git clone and push code tf of TFE') {
+            steps {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                rm -rf tfe-rds/
+                git config --global user.email "quang.hong.0991@gmail.com"
+                git config --global user.name "quangchuhong"
+                git clone https://$GIT_CREDS_USR:$GIT_CREDS_PSW@github.com/quangchuhong/tfe-rds.git
+                cd tfe-rds/
+                mv tf.auto.tfvars tf.auto.tfvars.ver2
+                cd ..
+                cp -r tf.auto.tfvars tfe-rds/
+                cd tfe-rds/
+                git pull
+                git add *
+                git commit -m 'update tfvars ver2'
+                git push
+                '''
+            }
+        }
     }
 
     post {
