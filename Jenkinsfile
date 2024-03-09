@@ -35,11 +35,7 @@ pipeline {
                     --db-parameter-group-family $DB_PARAMETER_GROUP_FAMILY \
                     --description "My new parameter group for $DB_PARAMETER_GROUP_FAMILY "
 
-                aws rds modify-db-parameter-group \
-                    --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --parameters "ParameterName='log_checkpoints',ParameterValue=on,ApplyMethod=pending-reboot" \
-                                "ParameterName='log_connections',ParameterValue=on,ApplyMethod=pending-reboot" \
-                                "ParameterName='track_activity_query_size',ParameterValue=102400,ApplyMethod=pending-reboot"         
+                python3 script-modify-postgres-parameter-group.py
                 '''
             }
         }
@@ -64,7 +60,7 @@ pipeline {
                                             --db-instance-identifier quangch-rds-upgrade-test \
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS != 'avainable') {
+                        if (RDS_STATUS != ["available"]) {
                             echo "Error: Command exited with status ${RDS_STATUS}"
                             sh'''sleep 60'''
                         } else {

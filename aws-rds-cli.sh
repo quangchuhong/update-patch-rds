@@ -65,7 +65,11 @@ aws rds create-db-parameter-group \
 
 aws rds describe-db-instances \
     --db-instance-identifier quangch-rds-upgrade-test \
+    --output text \
     --query 'DBInstances[].DBInstanceStatus[]'
+--> get text status 'available'
+
+$ aws sts get-caller-identity --output json | jq '.Arn | split("/")[-1]' -r
 
 
 sh(script:'aws rds describe-db-instances \
