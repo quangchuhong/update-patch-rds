@@ -35,6 +35,7 @@ pipeline {
                     --db-parameter-group-family $DB_PARAMETER_GROUP_FAMILY \
                     --description "My new parameter group for $DB_PARAMETER_GROUP_FAMILY "
 
+                alias python3=python3.8
                 python3 -m venv env
                 source env/bin/activatie
                 python3 script-modify-postgres-parameter-group.py
