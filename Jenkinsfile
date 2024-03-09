@@ -121,7 +121,7 @@ pipeline {
                 cd tfe-rds/
                 git pull
                 git add *
-                git commit -m 'update tfvars ver2'
+                git commit -m 'update tfvars ver7'
                 git push
                 '''
             }
