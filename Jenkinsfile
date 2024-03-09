@@ -92,20 +92,20 @@ pipeline {
                 }
             }
         }
-        stage('Upgrade Lastest Rds version') {
-            steps {
-                input message:'Approve Upgrade Rds?'
-                sh '''#!/usr/bin/env bash
-                echo "Shell Process ID: $$"
-                aws rds modify-db-instance \
-                    --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                    --engine-version $RDS_ENGINE_VERSION_LASTEST \
-                    --allow-major-version-upgrade \
-                    --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --apply-immediately
-                '''
-            }
-        }
+        // stage('Upgrade Lastest Rds version') {
+        //     steps {
+        //         input message:'Approve Upgrade Rds?'
+        //         sh '''#!/usr/bin/env bash
+        //         echo "Shell Process ID: $$"
+        //         aws rds modify-db-instance \
+        //             --db-instance-identifier $DB_INSTANCE_NAME_1 \
+        //             --engine-version $RDS_ENGINE_VERSION_LASTEST \
+        //             --allow-major-version-upgrade \
+        //             --db-parameter-group-name $DB_PARAMETER_GROUP \
+        //             --apply-immediately
+        //         '''
+        //     }
+        // }
 
         // stage('git clone and push code tf of TFE') {
         //     steps {
