@@ -65,7 +65,7 @@ pipeline {
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
                         def rds_status_test = 'available'
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS == 'available') {
+                        if (rds_status_test == 'available') {
                             echo "RDS status is ${RDS_STATUS}"
                             stage ('Upgrade Lastest Rds version') {
                                 steps {
