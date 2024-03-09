@@ -66,7 +66,7 @@ pipeline {
                         def rds_status_test = 'available'
                         echo "this is a string ${RDS_STATUS}"
                         if (rds_status_test == 'available') {
-                            echo "RDS status is ${RDS_STATUS}"
+                            echo "RDS status is ${rds_status_test}"
                             stage ('Upgrade Lastest Rds version') {
                                 steps {
                                     input message:'Approve Upgrade Rds?'
