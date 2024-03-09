@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-        stage ("wait_for_checking_status_rds") {
+        stage ("wait_for_auto_checking_status_rds") {
             steps {
                 script{
                     for (int i = 0; i < 120; i++) {
@@ -83,7 +83,7 @@ pipeline {
                             
                         } else {
                             echo "RDS status is not avainable"
-                            echo "Auto Checking Rds status, 2 minute/time"
+                            echo "Auto Checking Rds status avainable, 2 minute/time"
                             sh'''sleep 60'''
                         }
                         
