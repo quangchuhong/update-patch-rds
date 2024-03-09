@@ -66,7 +66,7 @@ pipeline {
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
                         def rds_status_test = '["available"]'
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS == 'available') {
+                        if (rds_status_test == 'available') {
                             echo "RDS status is ${rds_status_test}"
                             stage ('Upgrade Lastest Rds version') {
                                 input message:'Approve Upgrade Rds?'
@@ -92,21 +92,6 @@ pipeline {
                 }
             }
         }
-        // stage('Upgrade Lastest Rds version') {
-        //     steps {
-        //         input message:'Approve Upgrade Rds?'
-        //         sh '''#!/usr/bin/env bash
-        //         echo "Shell Process ID: $$"
-        //         aws rds modify-db-instance \
-        //             --db-instance-identifier $DB_INSTANCE_NAME_1 \
-        //             --engine-version $RDS_ENGINE_VERSION_LASTEST \
-        //             --allow-major-version-upgrade \
-        //             --db-parameter-group-name $DB_PARAMETER_GROUP \
-        //             --apply-immediately
-        //         '''
-        //     }
-        // }
-
         stage('git clone and push code tf of TFE') {
             steps {
                 sh '''#!/usr/bin/env bash
