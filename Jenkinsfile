@@ -68,9 +68,8 @@ pipeline {
                         if (rds_status_test == 'available') {
                             echo "RDS status is ${rds_status_test}"
                             stage ('Upgrade Lastest Rds version') {
-                                steps {
-                                    input message:'Approve Upgrade Rds?'
-                                    sh '''#!/usr/bin/env bash
+                                input message:'Approve Upgrade Rds?'
+                                sh '''#!/usr/bin/env bash
                                     echo "Shell Process ID: $$"
                                     aws rds modify-db-instance \
                                         --db-instance-identifier $DB_INSTANCE_NAME_1 \
@@ -78,8 +77,7 @@ pipeline {
                                         --allow-major-version-upgrade \
                                         --db-parameter-group-name $DB_PARAMETER_GROUP \
                                         --apply-immediately
-                                    '''
-                                }
+                                '''
                             }
                             
                         } else {
