@@ -78,8 +78,8 @@ pipeline {
                                         --db-parameter-group-name $DB_PARAMETER_GROUP \
                                         --apply-immediately
                                 '''
-                            break
                             }
+                            break  
                             
                         } else {
                             echo "RDS status is not available"
