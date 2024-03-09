@@ -38,6 +38,7 @@ pipeline {
                 alias python3=python3.8
                 python3 -m venv env
                 source env/bin/activatie
+                pip install boto3
                 python3 script-modify-postgres-parameter-group.py
                 '''
             }
