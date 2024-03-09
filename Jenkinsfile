@@ -78,6 +78,7 @@ pipeline {
                                         --db-parameter-group-name $DB_PARAMETER_GROUP \
                                         --apply-immediately
                                 '''
+                            break
                             }
                             
                         } else {
