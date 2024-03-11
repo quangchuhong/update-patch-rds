@@ -35,6 +35,10 @@ pipeline {
                     --db-parameter-group-family $DB_PARAMETER_GROUP_FAMILY \
                     --description "My new parameter group for $DB_PARAMETER_GROUP_FAMILY "
 
+                alias python3=python3.8
+                python3 -m venv env
+                source env/bin/activatie
+                pip install boto3
                 python3 script-modify-postgres-parameter-group.py
                 '''
             }
@@ -62,8 +66,25 @@ pipeline {
                                             --query 'DBInstances[].DBInstanceStatus[]'",returnStdout: true).trim()
                         def rds_status_test = '["available"]'
                         echo "this is a string ${RDS_STATUS}"
-                        if (RDS_STATUS != 'avainable') {
-                            echo "Error: Command exited with status ${RDS_STATUS}"
+                        if (RDS_STATUS == 'available') {
+                            echo "RDS status is ${rds_status_test}"
+                            stage ('Upgrade Lastest Rds version') {
+                                input message:'Approve Upgrade Rds?'
+                                sh '''#!/usr/bin/env bash
+                                    echo "Shell Process ID: $$"
+                                    aws rds modify-db-instance \
+                                        --db-instance-identifier $DB_INSTANCE_NAME_1 \
+                                        --engine-version $RDS_ENGINE_VERSION_LASTEST \
+                                        --allow-major-version-upgrade \
+                                        --db-parameter-group-name $DB_PARAMETER_GROUP \
+                                        --apply-immediately
+                                '''
+                            }
+                            break  
+                            
+                        } else {
+                            echo "RDS status is not available"
+                            echo "Auto Checking Rds status available, 2 minute/time"
                             sh'''sleep 60'''
                         }
                         
