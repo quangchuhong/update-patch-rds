@@ -59,7 +59,7 @@ pipeline {
             steps {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
-                liquibase update \
+                liquibase status \
                         --url="jdbc:postgresql://quangch-rds-upgrade-test.cihmxj0imzlx.ap-southeast-1.rds.amazonaws.com:5432/postgres?user=edu&password=adf234vcdDF" \
                         --username=edu --password=adf234vcdDF --changelog-file=postgres.sql
                 '''
