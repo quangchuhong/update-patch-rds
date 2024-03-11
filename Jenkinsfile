@@ -71,6 +71,17 @@ pipeline {
                 }
             }
         }
+        stage('update extension database ') {
+            steps {
+                sh '''#!/usr/bin/env bash
+                echo "Shell Process ID: $$"
+                liquibase update \
+                        --url="jdbc:postgresql://quangch-rds-upgrade-test.cihmxj0imzlx.ap-southeast-1.rds.amazonaws.com:5432/postgres?user=edu&password=adf234vcdDF" \
+                        --username=edu --password=adf234vcdDF --changelog-file=postgres.sql
+                '''
+            }
+        }
+
         stage('git clone and push code tf of TFE') {
             steps {
                 sh '''#!/usr/bin/env bash
