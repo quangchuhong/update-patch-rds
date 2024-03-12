@@ -12,11 +12,11 @@ pipeline {
         }
     }
     parameters {
-        string(name: 'DB_INSTANCE_NAME', defaultValue: '', description: 'rds db name')
+        string(name: 'DB_INSTANCE_NAME', defaultValue: 'quangch-rds-upgrade-test', description: 'rds db name')
         string(name: 'RDS_MINOR_VERSION', defaultValue: '13.14', description: 'rds minor version')
         string(name: 'RDS_VERSION_LASTEST', defaultValue: '16.2', description: 'rds version lastest')
         string(name: 'DB_NEW_PARAMETER_GROUP_FAMILY', defaultValue: 'postgres16', description: 'PARAMETER GROUP FAMILY (postgres16)')
-        string(name: 'URL_JDBC_DB', defaultValue: 'quangch-rds-upgrade-test.cihmxj0imzlx.ap-southeast-1.rds.amazonaws.com:5432', description: 'PARAMETER GROUP FAMILY (postgres16)')
+        string(name: 'URL_JDBC_DB', defaultValue: 'jdbc:postgresql://quangch-rds-upgrade-test.cihmxj0imzlx.ap-southeast-1.rds.amazonaws.com:5432/postgres?user=edu&password=adf234vcdDF', description: 'PARAMETER GROUP FAMILY (postgres16)')
     }
 
     environment {
@@ -65,7 +65,7 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
                 liquibase status \
-                        --url="jdbc:postgresql://quangch-rds-upgrade-test.cihmxj0imzlx.ap-southeast-1.rds.amazonaws.com:5432/postgres?user=edu&password=adf234vcdDF" \
+                        --url=${URL_JDBC_DB} \
                         --username=edu --password=adf234vcdDF --changelog-file=postgres.sql
                 '''
             }
