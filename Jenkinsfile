@@ -23,15 +23,15 @@ pipeline {
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
 
-    // environment {
-    //     GIT_CREDS  = credentials('git')
-    //     DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
-    //     RDS_ENGINE_VERSION = '16.2'
-    //     DB_PARAMETER_GROUP = 'rds-upgrade-test-postgres16-v3'
-    //     RDS_ENGINE_VERSION_LASTEST = '16.2'
-    //     DB_PARAMETER_GROUP_FAMILY = 'postgres16'
+    environment {
+        GIT_CREDS  = credentials('git')
+        DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
+        RDS_ENGINE_VERSION = '16.2'
+        DB_PARAMETER_GROUP = 'rds-upgrade-test-postgres16-v3'
+        RDS_ENGINE_VERSION_LASTEST = '16.2'
+        DB_PARAMETER_GROUP_FAMILY = 'postgres16'
         
-    // }
+    }
     stages {
 
         stage('Git Checkout') {
