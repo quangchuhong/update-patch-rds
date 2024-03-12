@@ -12,25 +12,16 @@ pipeline {
         }
     }
     parameters {
-        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+        string(name: 'DB_INSTANCE_NAME', defaultValue: '', description: 'rds db name')
+        string(name: 'RDS_MINOR_VERSION', defaultValue: '13.14', description: 'rds minor version')
+        string(name: 'RDS_VERSION_LASTEST', defaultValue: '16.2', description: 'rds version lastest')
+        string(name: 'DB_NEW_PARAMETER_GROUP_FAMILY', defaultValue: 'postgres16', description: 'PARAMETER GROUP FAMILY (postgres16)')
+        string(name: 'URL_JDBC_DB', defaultValue: 'quangch-rds-upgrade-test.cihmxj0imzlx.ap-southeast-1.rds.amazonaws.com:5432', description: 'PARAMETER GROUP FAMILY (postgres16)')
     }
 
     environment {
         GIT_CREDS  = credentials('git')
-        DB_INSTANCE_NAME_1 = 'quangch-rds-upgrade-test'
-        RDS_ENGINE_VERSION = '16.2'
-        DB_PARAMETER_GROUP = 'rds-upgrade-test-postgres16-v3'
-        RDS_ENGINE_VERSION_LASTEST = '16.2'
-        DB_PARAMETER_GROUP_FAMILY = 'postgres16'
-        
+        DB_PARAMETER_GROUP = 'rds-upgrade-test-postgres16-v3' 
     }
     stages {
 
@@ -118,7 +109,7 @@ pipeline {
         }
 
 
-        stage('git clone and push code tf of TFE') {
+        stage('Update Code terraform on TFE') {
             steps {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
