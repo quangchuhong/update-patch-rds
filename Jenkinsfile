@@ -37,8 +37,8 @@ pipeline {
                 echo "Shell Process ID: $$"
                 aws rds create-db-parameter-group \
                     --db-parameter-group-name $DB_PARAMETER_GROUP \
-                    --db-parameter-group-family $DB_PARAMETER_GROUP_FAMILY \
-                    --description "My new parameter group for $DB_PARAMETER_GROUP_FAMILY "
+                    --db-parameter-group-family ${DB_NEW_PARAMETER_GROUP_FAMILY} \
+                    --description "My new parameter group for ${DB_NEW_PARAMETER_GROUP_FAMILY} "
 
                 alias python3=python3.8
                 python3 -m venv env
@@ -53,8 +53,8 @@ pipeline {
                 sh '''#!/usr/bin/env bash
                 echo "Shell Process ID: $$"
                 aws rds modify-db-instance \
-                    --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                    --engine-version $RDS_ENGINE_VERSION \
+                    --db-instance-identifier ${DB_INSTANCE_NAME} \
+                    --engine-version ${RDS_MINOR_VERSION} \
                     --allow-major-version-upgrade \
                     --apply-immediately
                 '''
@@ -88,10 +88,10 @@ pipeline {
                                 sh '''#!/usr/bin/env bash
                                     echo "Shell Process ID: $$"
                                     aws rds modify-db-instance \
-                                        --db-instance-identifier $DB_INSTANCE_NAME_1 \
-                                        --engine-version $RDS_ENGINE_VERSION_LASTEST \
+                                        --db-instance-identifier ${DB_INSTANCE_NAME} \
+                                        --engine-version ${RDS_VERSION_LASTEST} \
                                         --allow-major-version-upgrade \
-                                        --db-parameter-group-name $DB_PARAMETER_GROUP \
+                                        --db-parameter-group-name ${DB_NEW_PARAMETER_GROUP} \
                                         --apply-immediately
                                 '''
                             }
