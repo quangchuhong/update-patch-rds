@@ -6,7 +6,7 @@ pipeline {
     }
     agent { 
         node {
-            label 'any'
+            label 'jenkin-test'
             // label 'cloud-jenkins-banca-host'
         }
     }
