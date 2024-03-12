@@ -91,7 +91,7 @@ pipeline {
                                         --db-instance-identifier ${DB_INSTANCE_NAME} \
                                         --engine-version ${RDS_VERSION_LASTEST} \
                                         --allow-major-version-upgrade \
-                                        --db-parameter-group-name ${DB_NEW_PARAMETER_GROUP} \
+                                        --db-parameter-group-name ${DB_PARAMETER_GROUP} \
                                         --apply-immediately
                                 '''
                             }
