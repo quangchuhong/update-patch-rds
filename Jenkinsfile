@@ -1,12 +1,16 @@
 pipeline {
-  options {
-    timestamps()
-    timeout(time: 60, unit: 'MINUTES')
-    // ansiColor('xterm')
-    // disableConcurrentBuilds()
-    // buildDiscarder(logRotator(numToKeepStr: '250', daysToKeepStr: '5'))
-  }
-    agent { 'jenkin-test' }
+    options {
+        timestamps()
+        timeout(time: 60, unit: 'MINUTES')
+        // ansiColor('xterm')
+        // disableConcurrentBuilds()
+        // buildDiscarder(logRotator(numToKeepStr: '250', daysToKeepStr: '5'))
+    }
+    agent { 
+        node {
+            label 'jenkin-test'
+        }
+    }
 
     environment {
         GIT_CREDS  = credentials('git')
