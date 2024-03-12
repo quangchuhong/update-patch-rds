@@ -1,4 +1,4 @@
-node("jenkin-slave-test") {
+node("jenkin-test") {
     parameters {
         string(name: 'STATEMENT', defaultValue: 'hello; ls /', description: 'What should I say?')
     }
