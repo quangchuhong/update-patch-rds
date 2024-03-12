@@ -94,8 +94,8 @@ pipeline {
                                 sh'''
                                 echo 'rollback rds step'
                                 '''
+                            }
                         }
-                        
                     }
                 }
             }
@@ -133,6 +133,7 @@ pipeline {
                                 sh'''
                                 echo 'rollback rds step'
                                 '''
+                            }
                         }
                         
                     }
