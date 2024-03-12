@@ -1,0 +1,8 @@
+track_activity_query_size=102400
+log_checkpoints=true
+log_min_error_statement=warning
+log_min_messages=warning
+log_statement=ddl
+track_functions=all
+shared_preload_libraries=pg_stat_statements,pg_cron,auto_explain
+
